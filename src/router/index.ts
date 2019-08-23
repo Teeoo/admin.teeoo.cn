@@ -1,29 +1,56 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Vue from 'vue'
+import Router, { RouteConfig, Route } from 'vue-router'
 
-Vue.use(VueRouter);
+Vue.use(Router)
 
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Home,
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-  },
-];
+const children = [
+    {
+        path: '/dashboard',
+        component: () => import('@/views/dashboard/index.vue'),
+        meta: {
+            title: '仪表盘'
+        }
+    },
+    {
+        path: '/category',
+        component: () => import('@/views/category/index.vue'),
+        meta: {
+            title: '分类'
+        }
+    }
+]
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes,
-});
+const routes: RouteConfig[] = [
+    {
+        path: '/login',
+        component: () => import('@/views/login/index.vue'),
+        meta: {
+            title: '登录'
+        }
+    },
+    {
+        path: '/',
+        redirect: '/dashboard',
+        component: () => import('@/views/layout/index.vue'),
+        meta: { auth: true },
+        children: [...children]
+    }
+]
 
-export default router;
+const router: Router = new Router({
+    mode: 'history',
+    routes
+})
+
+const title = 'Lee Blog'
+
+router.beforeEach(async (to: Route, from: Route, next: () => void) => {
+    document.title = `${to.meta.title} - ${title}`
+    next()
+})
+
+router.afterEach(() => {
+    //
+})
+
+export default router

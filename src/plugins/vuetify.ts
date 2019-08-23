@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuetify from 'vuetify'
+import Vuetify from 'vuetify/lib'
 import zhHans from 'vuetify/src/locale/zh-Hans'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
@@ -25,7 +25,7 @@ export default new Vuetify({
     },
     lang: {
         locales: { zhHans },
-        current: 'zh-Hans'
+        current: 'zhHans'
     },
     icons: {
         iconfont: 'md'

@@ -6,6 +6,7 @@ import store from './store'
 import { createProvider } from './plugins/apollo'
 import vuetify from './plugins/vuetify'
 import i18n from './plugins/i18n'
+import '@/app.styl'
 
 Vue.config.productionTip = false
 
