@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import Router, { RouteConfig, Route } from 'vue-router'
+import Router, { RouteConfig, Route, RawLocation } from 'vue-router'
+import store from '@/store'
 
 Vue.use(Router)
 
@@ -44,10 +45,29 @@ const router: Router = new Router({
 
 const title = 'Lee Blog'
 
-router.beforeEach(async (to: Route, from: Route, next: () => void) => {
-    document.title = `${to.meta.title} - ${title}`
-    next()
-})
+router.beforeEach(
+    async (
+        to: Route,
+        from: Route,
+        next: (to?: RawLocation | false | void) => void
+    ) => {
+        document.title = `${to.meta.title} - ${title}`
+        const auth = to.matched.some(record => record.meta.auth)
+        const token = store.state.token
+        if (auth && token) {
+            if (to.path === '/login') {
+                return next()
+            }
+            next()
+        } else {
+            if (to.path !== '/login') {
+                return next({ path: '/login' })
+            } else {
+                next()
+            }
+        }
+    }
+)
 
 router.afterEach(() => {
     //

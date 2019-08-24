@@ -45,6 +45,7 @@
                 <v-btn
                   text
                   color="primary"
+                  @click="login"
                 >登陆</v-btn>
               </v-card-actions>
             </v-card>
@@ -54,6 +55,18 @@
     </v-content>
   </v-app>
 </template>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component
+export default class Login extends Vue {
+    private login() {
+        this.$toast('Default toast')
+
+        // this.$toast.info('Info toast')
+    }
+}
+</script>
 <style lang="stylus">
 .login 
 	background linear-gradient(87deg, #5e72e4, #825ee4) !important
