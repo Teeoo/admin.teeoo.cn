@@ -14,16 +14,16 @@ export default new Vuex.Store({
             localStorage.setItem('token', state.token)
         },
         setUser(state, data) {
-            state.user = JSON.stringify(state.user)
+            state.user = JSON.stringify(data)
             localStorage.setItem('user', state.user)
         }
     },
     actions: {
-        SETTOKEN({ commit }) {
-            commit('setToken')
+        SET_TOKEN({ commit }, data) {
+            commit('setToken', data)
         },
-        SETUSER({ commit }) {
-            commit('setUser')
+        SET_USER({ commit }, data) {
+            commit('setUser', data)
         }
     },
     getters: {

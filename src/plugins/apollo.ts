@@ -9,11 +9,11 @@ Vue.use(VueApollo)
 /* tslint:disable:no-console */
 const AUTH_TOKEN = 'token'
 
-const httpEndpoint = process.env.GRAPHQL_HTTP
+const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP
 
 const defaultOptions = {
     httpEndpoint,
-    wsEndpoint: process.env.GRAPHQL_WS,
+    wsEndpoint: process.env.VUE_APP_GRAPHQL_WS,
     tokenName: AUTH_TOKEN,
     persisting: false,
     websocketsOnly: false,
