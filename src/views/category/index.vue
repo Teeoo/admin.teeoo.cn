@@ -2,97 +2,30 @@
   <v-card flat>
     <v-card-title>
       <v-subheader>管理分类</v-subheader>
-      <v-btn-toggle
-        tile
+      <v-btn
+        dark
         color="deep-purple accent-3"
-        group
-        dense
         rounded
+        small
+        @click="drawer=true"
       >
+        新增
+      </v-btn>
+      <v-badge class="ma-2">
+        <template v-slot:badge>{{count}}</template>
         <v-btn
-          dark
-          @click="drawer=true"
+          rounded
+          small
+          color="error"
+          :dark="count!==0?true:false"
+          :disabled="count===0?true:false"
         >
-          新增
+          批量删除
         </v-btn>
-        <v-badge>
-          <template v-slot:badge>{{count}}</template>
-          <v-btn
-            rounded
-            tile
-            color="deep-purple accent-3"
-            :dark="count!==0?true:false"
-            dense
-            :disabled="count===0?true:false"
-          >
-            批量删除
-          </v-btn>
-        </v-badge>
-
-      </v-btn-toggle>
-      <v-spacer></v-spacer>
-      <v-select
-        :items="headers"
-        label="字段"
-        v-model="filters.header"
-      ></v-select>
-      <v-menu
-        v-model="start"
-        :close-on-content-click="false"
-        transition="scale-transition"
-        offset-y
-        max-width="290px"
-        min-width="290px"
-      >
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="startdate"
-            label="开始时间"
-            prepend-icon="event"
-            readonly
-            v-on="on"
-          ></v-text-field>
-        </template>
-        <v-date-picker
-          v-model="filters.createdAt"
-          @input="start = false"
-        ></v-date-picker>
-      </v-menu>
-      <v-menu
-        v-model="end"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        transition="scale-transition"
-        offset-y
-        max-width="290px"
-        min-width="290px"
-      >
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="filters.updatedAt"
-            label="结束时间"
-            prepend-icon="event"
-            readonly
-            v-on="on"
-          ></v-text-field>
-        </template>
-        <v-date-picker
-          v-model="filters.updatedAt"
-          @input="end = false"
-        ></v-date-picker>
-      </v-menu>
-      <v-form>
-        <v-text-field
-          v-model="search"
-          prepend-icon="search"
-          label="search"
-          single-line
-        ></v-text-field>
-      </v-form>
+      </v-badge>
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :search="search"
       :items="AllCategory"
       show-select
       item-key="id"
@@ -106,6 +39,7 @@
           color="primary"
           dark
           small
+          rounded
           @click="show(item)"
         >
           {{item.label}}
@@ -273,19 +207,6 @@ export default class Category extends Vue {
     private drawer: boolean = false
     // 选中数据item
     private item: any = null
-    // 开始时间菜单
-    private start: boolean = false
-    // 开始时间
-    private startdate: any = new Date().toISOString().substr(0, 10)
-    // 结束菜单
-    private end: boolean = false
-    // 结束时间
-    private filters: object = {
-        header: null,
-        createdAt: null,
-        updatedAt: null
-    }
-    private enddate: any = null
     private headers: Array<object | []> = [
         {
             text: '分类名',
@@ -300,7 +221,6 @@ export default class Category extends Vue {
         { text: '创建时间', value: 'createdAt' },
         { text: '最后修改时间', value: 'updatedAt' }
     ]
-    private search: string = ''
 
     @Watch('drawer')
     private onDrawerChanged(val: boolean, oldVal: boolean) {

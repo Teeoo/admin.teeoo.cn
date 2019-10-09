@@ -2,34 +2,27 @@
   <v-card flat>
     <v-card-title>
       <v-subheader>管理文章</v-subheader>
-      <v-btn-toggle
-        tile
+      <v-btn
+        dark
         color="deep-purple accent-3"
-        group
-        dense
         rounded
+        small
+        to="article/add"
       >
+        新增
+      </v-btn>
+      <v-badge class="ma-2">
+        <template v-slot:badge>{{count}}</template>
         <v-btn
-          dark
-          to="article/add"
+          rounded
+          small
+          color="error"
+          :dark="count!==0?true:false"
+          :disabled="count===0?true:false"
         >
-          新增
+          批量删除
         </v-btn>
-        <v-badge>
-          <template v-slot:badge>{{count}}</template>
-          <v-btn
-            rounded
-            tile
-            color="deep-purple accent-3"
-            :dark="count!==0?true:false"
-            dense
-            :disabled="count===0?true:false"
-          >
-            批量删除
-          </v-btn>
-        </v-badge>
-      </v-btn-toggle>
-      <v-spacer></v-spacer>
+      </v-badge>
     </v-card-title>
     <v-data-table
       :headers="headers"
@@ -115,8 +108,8 @@ export default class Dashboard extends Vue {
         { text: '是否置顶', value: 'isTop' },
         { text: '是否允许评论', value: 'allowComment' },
         { text: '创建时间', value: 'createdAt' },
-        { text: '最后修改时间', value: 'updatedAt' }
-        // { text: '操作', value: 'operation', align: 'center' }
+        { text: '最后修改时间', value: 'updatedAt' },
+        { text: '操作', value: 'operation', align: 'center' }
     ]
 }
 </script>
