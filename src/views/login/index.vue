@@ -51,6 +51,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn
+                  rounded
                   text
                   color="primary"
                   @click="landing"
@@ -67,11 +68,12 @@
 import { Component, Vue } from 'vue-property-decorator'
 import gql from 'graphql-tag'
 import { Action } from 'vuex-class'
+import { onLogin } from '../../plugins'
 
 @Component
 export default class Login extends Vue {
-    @Action private SET_TOKEN!: (data: string) => void
-    @Action private SET_USER!: (data: object) => void
+    @Action setToken!: Function
+    @Action setUser!: Function
     private valid: boolean = true
     private loading: boolean = false
     private login: any = {
@@ -84,29 +86,31 @@ export default class Login extends Vue {
             rule: [(v: string) => !!v || '不写密码真的好吗?']
         }
     }
-
     private async landing(): Promise<void> {
         this.loading = true
         if ((this.$refs.form as any).validate()) {
             try {
                 const result = await this.$apollo.query({
                     query: gql`
-                        query login($data: LoginUserInput!) {
-                            login(loginUserInput: $data) {
+                        query($data: LoginUserInput!) {
+                            login(data: $data) {
                                 access_token
                                 token_type
                                 expires_in
-                                userinfo {
-                                    uid
+                                user {
+                                    id
+                                    order
+                                    desc
+                                    createdAt
+                                    updatedAt
                                     nickname
-                                    avatar
+                                    avatarUrl
                                     email
                                     url
                                     screenName
-                                    last_login_ip
-                                    last_login_time
-                                    created_at
-                                    updated_at
+                                    exinfo
+                                    lastIp
+                                    lastTime
                                 }
                             }
                         }
@@ -118,13 +122,13 @@ export default class Login extends Vue {
                         }
                     }
                 })
-                this.SET_TOKEN(result.data.login.access_token)
-                this.SET_USER(result.data.login.userinfo)
+                const apolloClient = this.$apollo.provider.defaultClient
+                await onLogin(apolloClient)
+                this.setToken(result.data.login.access_token)
+                this.setUser(result.data.login.user)
                 this.$router.push('/')
             } catch (error) {
-                this.$toast(`${error.graphQLErrors[0].message}`, {
-                    icon: 'error'
-                })
+                console.info(error)
             }
         }
         this.loading = false

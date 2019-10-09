@@ -24,8 +24,10 @@ export interface VuetifyToastObject {
     vertical?: boolean
     showClose?: boolean
     closeText?: string
+    closeIcon?: string
     closeColor?: string
     queueable?: boolean
+    slot?: Array<any>
     shorts?: any
 }
 
@@ -40,6 +42,6 @@ interface VuetifyToastMethods extends VuetifyToastShow {
 
 declare module 'vue/types/vue' {
     interface Vue {
-        $toast: VuetifyToastMethods
+        $toast: any
     }
 }

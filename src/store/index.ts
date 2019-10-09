@@ -9,26 +9,26 @@ export default new Vuex.Store({
         user: localStorage.getItem('user') || ''
     },
     mutations: {
-        setToken(state, data) {
+        ['SET_TOKEN'](state, data) {
             state.token = data
             localStorage.setItem('token', state.token)
         },
-        setUser(state, data) {
+        ['SET_USER'](state, data) {
             state.user = JSON.stringify(data)
             localStorage.setItem('user', state.user)
         }
     },
     actions: {
-        SET_TOKEN({ commit }, data) {
-            commit('setToken', data)
+        setToken({ commit }, data) {
+            commit('SET_TOKEN', data)
         },
-        SET_USER({ commit }, data) {
-            commit('setUser', data)
+        setUser({ commit }, data) {
+            commit('SET_USER', data)
         }
     },
     getters: {
-        userName: state => JSON.parse(state.user).name,
-        userAvatar: state => JSON.parse(state.user).avatar,
+        userName: state => JSON.parse(state.user).nickname,
+        userAvatar: state => JSON.parse(state.user).avatarUrl,
         userEmail: state => JSON.parse(state.user).email
     }
 })

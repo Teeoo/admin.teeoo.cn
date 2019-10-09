@@ -34,7 +34,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx", "src/components/toast/index.js"
+    "tests/**/*.tsx", "src/boot/notify-defaults.js", "src/boot/notify-defaults.js", "src/components/toast/index.ts"
   ],
   "exclude": [
     "node_modules"
