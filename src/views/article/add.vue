@@ -188,19 +188,41 @@
                     sm="6"
                   >
                     <v-textarea
-                      :rows="18"
-                      ref="inputer"
+                      ref="markdown"
+                      @scroll="markdownScroll"
+                      @mouseenter="mousescrollSide('markdown')"
                       v-model="text"
+                      :height="450"
+                      flat
+                      clearable
+                      dense
+                      full-width
                     ></v-textarea>
+                    <!-- <textarea
+                      @scroll="markdownScroll"
+                      @mouseenter="mousescrollSide('markdown')"
+                      ref="markdown"
+                      v-model="text"
+                      style="width:100%;height:100%"
+                    >
+                    </textarea> -->
                   </v-col>
                   <v-col
                     cols="6"
                     sm="6"
                   >
-                    <div v-html="html"></div>
+                    <div
+                      :style="{ height: `${height}px`,overflow: `hidden`, soverflowY: `scroll` }"
+                      v-html="html"
+                      ref="preview"
+                      @scroll="previewScroll"
+                      @mouseenter="mousescrollSide('preview')"
+                    ></div>
                   </v-col>
                 </v-row>
               </div>
+            </v-card-text>
+            <v-card-text>
               <span>共计:</span>
               <v-chip
                 color="primary"
@@ -289,11 +311,6 @@
                   >删除字段</v-btn>
                 </v-col>
               </v-row>
-              <!-- <v-text-field
-                label="新增字段1"
-                color="success"
-                loading
-              ></v-text-field> -->
               <v-btn
                 text
                 small
@@ -392,6 +409,8 @@ import * as twemoji from 'twemoji'
     components: {}
 })
 export default class AddArticle extends Vue {
+    private height: number = 0
+    private scroll: string = 'markdown'
     // 验证
     private valid: boolean = true
     private tab: number = 0
@@ -445,6 +464,10 @@ export default class AddArticle extends Vue {
 
     private html: string = ''
 
+    // public $refs!: {
+    //     scrollView: AddArticle
+    // }
+
     private addFields() {
         const code = {
             name: '',
@@ -471,26 +494,58 @@ export default class AddArticle extends Vue {
 
         this.html = md
     }
+
+    public mounted(): void {
+        this.height = (this.$refs.markdown as any).$el.querySelector(
+            'textarea'
+        ).scrollHeight
+    }
+
+    private markdownScroll() {
+        if (this.scroll === 'markdown') {
+            const markdown: any = (this.$refs
+                .markdown as any).$el.querySelector('textarea')
+            console.info(
+                (this.$refs.markdown as any).$el.querySelector('textarea')
+                    .scrollHeight
+            )
+            const preview: any = this.$refs.preview
+            const markdownScrollHeight = markdown.scrollHeight
+            const markdownScrollTop = markdown.scrollTop
+            const previewScrollHeight = preview.scrollHeight
+
+            preview.scrollTop =
+                (markdownScrollTop / markdownScrollHeight) * previewScrollHeight
+        }
+    }
+    private mousescrollSide(side: string) {
+        console.info(side)
+        this.scroll = side
+    }
+    private previewScroll() {
+        if (this.scroll === 'preview') {
+            const markdown: any = (this.$refs
+                .markdown as any).$el.querySelector('textarea')
+            const preview: any = this.$refs.preview
+            const markdownScrollHeight = markdown.scrollHeight
+            const previewScrollHeight = preview.scrollHeight
+            const previewScrollTop = preview.scrollTop
+            console.info(previewScrollHeight)
+            markdown.scrollTop =
+                (previewScrollTop / previewScrollHeight) * markdownScrollHeight
+        }
+    }
 }
 </script>
 <style lang="stylus" scoped>
-.content {
-            width: 100%;
-            display: flex;
+.toolbars {
+}
+::-webkit-scrollbar{
+display:none;
+}
+input:focus, textarea:focus {
 
-            .editor {
-                flex: 1;
+    outline: none;
 
-                textarea {
-                    height: 300px;
-                }
-            }
-
-            .preview {
-                font-size: 16px;
-                padding-top: 12px;
-                margin-top: 4px;
-                flex: 1;
-            }
-        }
+}
 </style>
