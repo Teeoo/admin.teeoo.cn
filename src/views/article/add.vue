@@ -12,215 +12,22 @@
         >
           <v-card flat="flat">
             <v-card-text>
-              <v-text-field label="标题"></v-text-field>
-              <v-text-field label="别名"></v-text-field>
-              <div class="markdown">
-                <div class="toolbars">
-                  <div class="icon">
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconbold"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconitalic"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconheading"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconunderline"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconstrike"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconanchor"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconblockquote"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconorderedlist"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconunorderedlist"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconunlink"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconcode"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconimage"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconalignjustify1"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconpreview"
-                        small
-                      ></v-icon>
-                    </v-btn>
-
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconsave"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconprint"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconfullscreen"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                    >
-                      <v-icon
-                        class="iconfont iconhelp"
-                        small
-                      ></v-icon>
-                    </v-btn>
-                  </div>
-                </div>
-                <v-row no-gutters>
-                  <v-col
-                    cols="6"
-                    sm="6"
-                  >
-                    <v-textarea
-                      ref="markdown"
-                      @scroll="markdownScroll"
-                      @mouseenter="mousescrollSide('markdown')"
-                      v-model="text"
-                      :height="450"
-                      flat
-                      clearable
-                      dense
-                      full-width
-                    ></v-textarea>
-                    <!-- <textarea
-                      @scroll="markdownScroll"
-                      @mouseenter="mousescrollSide('markdown')"
-                      ref="markdown"
-                      v-model="text"
-                      style="width:100%;height:100%"
-                    >
-                    </textarea> -->
-                  </v-col>
-                  <v-col
-                    cols="6"
-                    sm="6"
-                  >
-                    <div
-                      :style="{ height: `${height}px`,overflow: `hidden`, soverflowY: `scroll` }"
-                      v-html="html"
-                      ref="preview"
-                      @scroll="previewScroll"
-                      @mouseenter="mousescrollSide('preview')"
-                    ></div>
-                  </v-col>
-                </v-row>
-              </div>
+              <v-text-field
+                label="标题"
+                v-model="data.title.value"
+                :rules="data.title.rule"
+              ></v-text-field>
+              <v-text-field
+                label="别名"
+                v-model="data.slug.value"
+                :rules="data.slug.rule"
+              ></v-text-field>
+            </v-card-text>
+            <v-card-text>
+              <Editor
+                ref=md
+                v-model="content"
+              />
             </v-card-text>
             <v-card-text>
               <span>共计:</span>
@@ -228,7 +35,7 @@
                 color="primary"
                 small="small"
                 text-color="white"
-              >字数 0
+              >字数 {{markdown.length}}
               </v-chip>
               <span>其中包含:</span>
               <v-chip
@@ -346,6 +153,7 @@
                     item-text="text"
                     item-value="value"
                     label="内容类别"
+                    :items="type"
                   ></v-select>
                   <v-combobox
                     item-text="label"
@@ -367,9 +175,10 @@
                     <v-radio label="保存草稿"></v-radio>
                   </v-radio-group>
                   <v-select
-                    label="公开度"
+                    label="内容公开度"
                     item-text="text"
                     item-value="value"
+                    :items="publish"
                   ></v-select>
                   <v-text-field label="密码"></v-text-field>
                   <v-switch
@@ -384,6 +193,7 @@
                     label="模板"
                     item-text="text"
                     item-value="value"
+                    :items="template"
                   ></v-select>
                 </v-card-text>
 
@@ -401,17 +211,15 @@
   </v-form>
 </template>
 <script lang="ts">
-import '@/assets/font/iconfont.css'
 import { Vue, Component, Watch } from 'vue-property-decorator'
-import * as twemoji from 'twemoji'
+import Editor from '../../components/editor/editor.vue'
 
 @Component({
-    components: {}
+    components: {
+        Editor
+    }
 })
 export default class AddArticle extends Vue {
-    private height: number = 0
-    private scroll: string = 'markdown'
-    // 验证
     private valid: boolean = true
     private tab: number = 0
     private fields: Array<Object> = []
@@ -429,44 +237,90 @@ export default class AddArticle extends Vue {
             value: 'float'
         }
     ]
-    private text: string = `
-## 目录
-* [横线](#横线)
-* [标题](#标题)
-* [文本](#文本)
-    * 普通文本
-    * 单行文本
-    * 多行文本
-    * 文字高亮
-    * 换行
-    * 斜体
-    * 粗体
-    * 删除线
-* [图片](#图片)
-    * 来源于网络的图片
-    * GitHub仓库中的图片
-* [链接](#链接) 
-    * 文字超链接
-        *  链接外部URL
-        *  链接本仓库里的URL
-    *  锚点
-    * [图片链接](#图片链接)
-* [列表](#列表)
-    * 无序列表
-    * 有序列表
-    * 复选框列表
-* [块引用](#块引用)
-* [代码高亮](#代码高亮)
-* [表格](#表格) 
-* [表情](#表情)
-* [diff语法](#diff语法)
-    `
+    private markdown: string = ``
+    private content: string = ''
 
-    private html: string = ''
-
-    // public $refs!: {
-    //     scrollView: AddArticle
-    // }
+    // 内容类别
+    private type: Array<object> = [
+        { text: '文章', value: 'article' },
+        { text: '页面', value: 'page' }
+    ]
+    // 内容公开状态
+    private publish: Array<object> = [
+        { text: '公开', value: 'publish' },
+        { text: '隐藏', value: 'hidden' },
+        { text: '密码保护', value: 'password' }
+    ]
+    // 页面模板
+    private template: Array<object> = [
+        {
+            value: 'default',
+            text: '默认'
+        },
+        {
+            value: 'files',
+            text: '文章归档'
+        },
+        {
+            value: 'links',
+            text: '友情链接'
+        },
+        {
+            value: 'cross',
+            text: '时光机'
+        },
+        {
+            value: 'github',
+            text: 'github'
+        },
+        {
+            value: 'message',
+            text: '留言板'
+        }
+    ]
+    // 如果是发布页面则禁用一些不必要的东西
+    private disabled: boolean = false
+    // 提交数据
+    private data: object = {
+        title: {
+            value: '',
+            rule: [(v: string) => !!v || '标题为必填项!']
+        },
+        slug: {
+            value: '',
+            rule: []
+        },
+        tags: {
+            value: [],
+            rule: []
+        },
+        type: {
+            value: 'article',
+            rule: []
+        },
+        status: {
+            value: Boolean(true),
+            rule: []
+        },
+        publish: {
+            value: 'publish',
+            rule: []
+        },
+        origin: {
+            value: Number(1),
+            rule: []
+        },
+        password: {
+            value: '',
+            rule: [(v: string) => !!v || '密码为必填项!']
+        },
+        allowComment: { value: Boolean(true), rule: [] },
+        isTop: { value: Boolean(false), rule: [] },
+        template: {
+            value: 'default',
+            rule: [(v: string) => !!v || '必须选择一个模板!']
+        }
+    }
 
     private addFields() {
         const code = {
@@ -480,72 +334,9 @@ export default class AddArticle extends Vue {
         this.fields.splice(index, 1)
     }
 
-    @Watch('text', { deep: true })
+    @Watch('content', { deep: true })
     private onText(val: any, oldVal: any) {
-        const markdown = require('markdown-it')({
-            html: true,
-            linkify: true,
-            typography: true
-        })
-            .use(require('markdown-it-emoji'))
-            .use(require('markdown-it-toc'))
-
-        const md = markdown.render(val)
-
-        this.html = md
-    }
-
-    public mounted(): void {
-        this.height = (this.$refs.markdown as any).$el.querySelector(
-            'textarea'
-        ).scrollHeight
-    }
-
-    private markdownScroll() {
-        if (this.scroll === 'markdown') {
-            const markdown: any = (this.$refs
-                .markdown as any).$el.querySelector('textarea')
-            console.info(
-                (this.$refs.markdown as any).$el.querySelector('textarea')
-                    .scrollHeight
-            )
-            const preview: any = this.$refs.preview
-            const markdownScrollHeight = markdown.scrollHeight
-            const markdownScrollTop = markdown.scrollTop
-            const previewScrollHeight = preview.scrollHeight
-
-            preview.scrollTop =
-                (markdownScrollTop / markdownScrollHeight) * previewScrollHeight
-        }
-    }
-    private mousescrollSide(side: string) {
-        console.info(side)
-        this.scroll = side
-    }
-    private previewScroll() {
-        if (this.scroll === 'preview') {
-            const markdown: any = (this.$refs
-                .markdown as any).$el.querySelector('textarea')
-            const preview: any = this.$refs.preview
-            const markdownScrollHeight = markdown.scrollHeight
-            const previewScrollHeight = preview.scrollHeight
-            const previewScrollTop = preview.scrollTop
-            console.info(previewScrollHeight)
-            markdown.scrollTop =
-                (previewScrollTop / previewScrollHeight) * markdownScrollHeight
-        }
+        this.markdown = (this.$refs.md as any).text
     }
 }
 </script>
-<style lang="stylus" scoped>
-.toolbars {
-}
-::-webkit-scrollbar{
-display:none;
-}
-input:focus, textarea:focus {
-
-    outline: none;
-
-}
-</style>
