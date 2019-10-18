@@ -128,44 +128,21 @@
 </template>
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator'
-import gql from 'graphql-tag'
+import {
+    ALLCATEGORY,
+    ONCATEGORY,
+    NEWCATEGORY,
+    UPDATECATEGORY,
+    DELETECATEGORY
+} from '../../graphql'
+
 @Component({
     apollo: {
         AllCategory() {
             return {
-                query: gql`
-                    query {
-                        AllCategory {
-                            id
-                            order
-                            desc
-                            createdAt
-                            updatedAt
-                            label
-                            slug
-                            cateNum
-                            archNum
-                            parent
-                        }
-                    }
-                `,
+                query: ALLCATEGORY,
                 subscribeToMore: {
-                    document: gql`
-                        subscription {
-                            category {
-                                id
-                                order
-                                desc
-                                createdAt
-                                updatedAt
-                                label
-                                slug
-                                cateNum
-                                archNum
-                                children
-                            }
-                        }
-                    `,
+                    document: ONCATEGORY,
                     updateQuery: (
                         previousResult: any,
                         { subscriptionData }: any
@@ -244,22 +221,7 @@ export default class Category extends Vue {
         if (this.item != null) {
             try {
                 const result = await this.$apollo.mutate({
-                    mutation: gql`
-                        mutation($id: String!, $data: UpdateCategoryInput!) {
-                            UpdateCategory(data: $data, id: $id) {
-                                id
-                                order
-                                desc
-                                createdAt
-                                updatedAt
-                                label
-                                slug
-                                cateNum
-                                archNum
-                                children
-                            }
-                        }
-                    `,
+                    mutation: UPDATECATEGORY,
                     variables: {
                         id: await this.item.id,
                         data: {
@@ -278,22 +240,7 @@ export default class Category extends Vue {
             if ((this.$refs.form as any).validate()) {
                 try {
                     const result = await this.$apollo.mutate({
-                        mutation: gql`
-                            mutation($data: NewCategoryInput!) {
-                                NewCategory(data: $data) {
-                                    id
-                                    order
-                                    desc
-                                    createdAt
-                                    updatedAt
-                                    label
-                                    slug
-                                    cateNum
-                                    archNum
-                                    children
-                                }
-                            }
-                        `,
+                        mutation: NEWCATEGORY,
                         variables: {
                             data: {
                                 label: await this.category.label.value,
@@ -323,11 +270,7 @@ export default class Category extends Vue {
     private async remove() {
         try {
             const result = await this.$apollo.mutate({
-                mutation: gql`
-                    mutation($id: String!) {
-                        DeleteCategory(id: $id)
-                    }
-                `,
+                mutation: DELETECATEGORY,
                 variables: {
                     id: this.item.id
                 }

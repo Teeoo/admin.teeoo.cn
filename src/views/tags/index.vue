@@ -120,41 +120,14 @@
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import gql from 'graphql-tag'
+import { ALLTAGS, ONTAGS, UPDATETAGS, NEWTAGS } from '../../graphql'
 @Component({
     apollo: {
         AllTags() {
             return {
-                query: gql`
-                    query {
-                        AllTags {
-                            id
-                            order
-                            desc
-                            createdAt
-                            updatedAt
-                            label
-                            slug
-                            color
-                            hot
-                        }
-                    }
-                `,
+                query: ALLTAGS,
                 subscribeToMore: {
-                    document: gql`
-                        subscription {
-                            tags {
-                                id
-                                order
-                                desc
-                                createdAt
-                                updatedAt
-                                label
-                                slug
-                                color
-                                hot
-                            }
-                        }
-                    `,
+                    document: ONTAGS,
                     updateQuery: (
                         previousResult: any,
                         { subscriptionData }: any
@@ -223,21 +196,7 @@ export default class Dashboard extends Vue {
         if (this.item !== null) {
             try {
                 const result = await this.$apollo.mutate({
-                    mutation: gql`
-                        mutation($data: UpdateTagsInput!, $is: String!) {
-                            UpdateTags(data: $data, id: $id) {
-                                id
-                                order
-                                desc
-                                createdAt
-                                updatedAt
-                                label
-                                slug
-                                color
-                                hot
-                            }
-                        }
-                    `,
+                    mutation: UPDATETAGS,
                     variables: {
                         id: await this.item.id,
                         data: {
@@ -255,21 +214,7 @@ export default class Dashboard extends Vue {
             if ((this.$refs.form as any).validate()) {
                 try {
                     const result = await this.$apollo.mutate({
-                        mutation: gql`
-                            mutation($data: NewTagsInput!) {
-                                NewTags(data: $data) {
-                                    id
-                                    order
-                                    desc
-                                    createdAt
-                                    updatedAt
-                                    label
-                                    slug
-                                    color
-                                    hot
-                                }
-                            }
-                        `,
+                        mutation: NEWTAGS,
                         variables: {
                             data: {
                                 label: await this.tags.label.value,
