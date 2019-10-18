@@ -9,15 +9,15 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
-    "@types/markdown-it": "^0.0.9",
-    "@types/moment": "^2.13.0",
+    "@types/markdown-it": "0.0.9",
+    "@types/moment": "2.13.0",
     "@types/nprogress": "0.2.0",
     "core-js": "3.3.2",
     "markdown-it": "10.0.0",
     "markdown-it-emoji": "1.4.0",
     "markdown-it-toc": "1.1.0",
     "material-design-icons-iconfont": "5.0.1",
-    "moment": "^2.24.0",
+    "moment": "2.24.0",
     "nprogress": "0.2.0",
     "register-service-worker": "1.6.2",
     "roboto-fontface": "*",
