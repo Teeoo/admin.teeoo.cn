@@ -44,7 +44,7 @@
     "@vue/cli-service": "4.0.3",
     "graphql-tag": "2.10.1",
     "postcss-rtl": "1.5.0",
-    "sass": "1.23.0",
+    "sass": "1.23.3",
     "sass-loader": "7.3.1",
     "stylus": "0.54.7",
     "stylus-loader": "3.0.2",
