@@ -31,5 +31,6 @@ export {
     onLogin,
     onLogout,
     formatDate,
-    formatTemplate
+    formatTemplate,
+
 }

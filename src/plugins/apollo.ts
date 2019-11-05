@@ -5,6 +5,7 @@ import {
     restartWebsockets
 } from 'vue-cli-plugin-apollo/graphql-client'
 import router from '@/router'
+import { createUploadLink } from 'apollo-upload-client'
 
 /* tslint:disable:no-console */
 

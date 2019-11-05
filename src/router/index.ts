@@ -40,6 +40,13 @@ const children = [
         meta: {
             title: '新增文章'
         }
+    },
+    {
+        path: 'article/update/:id',
+        component: () => import('@/views/article/update.vue'),
+        meta: {
+            title: '修改文章'
+        }
     }
 ]
 

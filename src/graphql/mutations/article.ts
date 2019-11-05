@@ -1,12 +1,12 @@
+import { Article } from './../fragments/article'
 import gql from 'graphql-tag'
-import { Tags } from '../fragments/tags'
 export const NEWARTICLE = gql`
     mutation($data: NewArticleInput!) {
         NewArticle(data: $data) {
             ...fragment
         }
     }
-    ${Tags.fragment}
+    ${Article.fragment}
 `
 
 export const UPDATEARTICLE = gql`
@@ -15,7 +15,7 @@ export const UPDATEARTICLE = gql`
             ...fragment
         }
     }
-    ${Tags.fragment}
+    ${Article.fragment}
 `
 
 export const DELETEARTICLE = gql`

@@ -224,10 +224,10 @@
                 rounded
                 color="deep-purple accent-4"
                 dark
-                @click="add()"
+                @click="update()"
                 :loading="loading"
                 :disabled="!valid"
-              >发布文章</v-btn>
+              >修改文章</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -235,24 +235,39 @@
     </v-card>
   </v-form>
 </template>
+
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import gql from 'graphql-tag'
-import { ALLCATEGORY, NEWARTICLE } from '../../graphql'
+import { ONEARTICLE, ALLCATEGORY, UPDATEARTICLE } from '../../graphql'
+
 @Component({
     apollo: {
         AllCategory() {
             return {
                 query: ALLCATEGORY
             }
+        },
+        OneArticle: {
+            query: ONEARTICLE,
+            variables() {
+                return {
+                    id: this.$route.params.id
+                }
+            }
         }
     },
     components: {}
 })
-export default class AddArticle extends Vue {
+export default class ArticleUpdate extends Vue {
+    private tags: any = []
     private toc: object = {}
+    private markdown: string = ``
+    private content: string = ''
     private valid: boolean = false
-    private tab: number = 0
+    private loading: boolean = false
+    private id?: string
+    private OneArticle: any
     private fields: Array<Object> = []
     private fieldsType: Array<Object> = [
         {
@@ -268,11 +283,6 @@ export default class AddArticle extends Vue {
             value: 'float'
         }
     ]
-    private tags: any = []
-    private loading: boolean = false
-    private markdown: string = ``
-    private content: string = ''
-
     // 文章是否加密
     private password: boolean = false
 
@@ -361,6 +371,33 @@ export default class AddArticle extends Vue {
         }
     }
 
+    @Watch('OneArticle')
+    private onOneArticle(val: any, oldVal: any) {
+        this.data.title.value = val.title
+        this.data.slug.value = val.slug
+        this.data.category.value =
+            val.type === 'article' ? val.category.id : undefined
+        this.markdown = val.html
+        this.content = val.text
+        this.data.type.value = val.type
+        this.data.status.value = val.status
+        this.data.publish.value = val.publish
+        this.data.password.value = val.password
+        this.data.allowComment.value = val.allowComment
+        this.data.isTop.value = val.isTop
+        this.data.template.value = val.template
+        this.fields = val.fields
+
+        this.id = val.id
+
+        const tags: any = []
+
+        val.tags.forEach((v: any) => {
+            tags.push(v.label)
+        })
+
+        this.data.tags.value = tags
+    }
     private addFields() {
         const code = {
             name: '',
@@ -375,7 +412,30 @@ export default class AddArticle extends Vue {
 
     @Watch('content', { deep: true })
     private onText(val: any, oldVal: any) {
-        // this.toc = (this.$refs.md as any).toc
+        const markdownIt = (this.$refs.md as any).markdownIt
+        const markdownItAttrs = require('markdown-it-attrs')
+        markdownIt.use(markdownItAttrs)
+        markdownIt.renderer.rules.fence = (
+            tokens: any,
+            idx: any,
+            options: any,
+            env: any,
+            slf: any
+        ) => {
+            const token = tokens[idx]
+            return (
+                '<pre ' +
+                slf.renderAttrs(token) +
+                '>' +
+                '<code class=lang-' +
+                token.info +
+                '>' +
+                token.content +
+                '</code>' +
+                '</pre>'
+            )
+        }
+        markdownIt.set({ breaks: false })
         this.markdown = (this.$refs.md as any).d_value
     }
 
@@ -417,12 +477,12 @@ export default class AddArticle extends Vue {
             })
             ;(this.$refs.md as any).$img2Url(
                 pos,
-                `${process.env.VUE_APP_API}/${result.data.uploads.filename}`
+                `http://127.0.0.1:3000/${result.data.uploads.filename}`
             )
         } catch (error) {}
     }
 
-    private async add(): Promise<void> {
+    private async update(): Promise<void> {
         this.loading = true
         if ((this.$refs.form as any).validate()) {
             await this.data.tags.value.forEach((v: any) => {
@@ -430,8 +490,9 @@ export default class AddArticle extends Vue {
             })
             try {
                 const result = await this.$apollo.mutate({
-                    mutation: NEWARTICLE,
+                    mutation: UPDATEARTICLE,
                     variables: {
+                        id: this.id,
                         data: {
                             title: await this.data.title.value,
                             slug: await this.data.slug.value,
@@ -439,8 +500,6 @@ export default class AddArticle extends Vue {
                             text: await this.markdown,
                             html: await (this.$refs.md as any).d_render,
                             // toc: await this.toc,
-                            // 放后台处理
-                            // summary: await this.data.summary.value,
                             cover: '',
                             type: await this.data.type.value,
                             status: await this.data.status.value,

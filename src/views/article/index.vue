@@ -24,71 +24,81 @@
         </v-btn>
       </v-badge>
     </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :search="search"
-      :items="AllArticle"
-      show-select
-      item-key="id"
-      v-model="selected"
+    <v-skeleton-loader
       :loading="$apollo.loading"
-      loading-text="Loading... Please wait"
+      transition="scale-transition"
+      type="table"
     >
-      <template v-slot:item.category.label="{ item }">
-        {{ item.type==='article' ? item.category.label:'页面无分类' }}
-      </template>
-      <template v-slot:item.allowComment="{ item }">
-        {{ item.allowComment ? "允许":"不允许" }}
-      </template>
-      <template v-slot:item.isTop="{ item }">
-        {{ item.isTop ? "置顶":"不置顶" }}
-      </template>
-      <template v-slot:item.status="{ item }">
-        {{ item.status ? "发布":"草稿" }}
-      </template>
-      <template v-slot:item.type="{ item }">
-        {{ item.type==='article' ? "文章":"页面" }}
-      </template>
-      <template v-slot:item.template="{ item }">
-        {{ item.template | formatTemplate }}
-      </template>
-      <template v-slot:item.publish="{ item }">
-        <label v-if="item.publish === 'publish'">公开</label>
-        <label v-else-if="item.publish ==='hidden'">隐藏</label>
-        <label v-else>加密</label>
-      </template>
-      <template v-slot:item.createdAt="{ item }">
-        {{item.createdAt | formatDate}}
-      </template>
-      <template v-slot:item.updatedAt="{ item }">
-        {{item.updatedAt | formatDate}}
-      </template>
-      <template v-slot:item.action="{ item }">
-        <v-btn icon>
-          <v-icon
-            small
-            color="purple"
+      <v-data-table
+        :headers="headers"
+        :search="search"
+        :items="AllArticle"
+        show-select
+        item-key="id"
+        v-model="selected"
+        :loading="$apollo.loading"
+        loading-text="Loading... Please wait"
+      >
+        <template v-slot:item.category.label="{ item }">
+          {{ item.type==='article' ? item.category.label:'页面无分类' }}
+        </template>
+        <template v-slot:item.allowComment="{ item }">
+          {{ item.allowComment ? '允许':'不允许' }}
+        </template>
+        <template v-slot:item.isTop="{ item }">
+          {{ item.isTop ? '置顶':'不置顶' }}
+        </template>
+        <template v-slot:item.status="{ item }">
+          {{ item.status ? '发布':'草稿' }}
+        </template>
+        <template v-slot:item.type="{ item }">
+          {{ item.type==='article' ? '文章':'页面' }}
+        </template>
+        <template v-slot:item.template="{ item }">
+          {{ item.template | formatTemplate }}
+        </template>
+        <template v-slot:item.publish="{ item }">
+          <label v-if="item.publish === 'publish'">公开</label>
+          <label v-else-if="item.publish ==='hidden'">隐藏</label>
+          <label v-else>加密</label>
+        </template>
+        <template v-slot:item.createdAt="{ item }">
+          {{item.createdAt | formatDate}}
+        </template>
+        <template v-slot:item.updatedAt="{ item }">
+          {{item.updatedAt | formatDate}}
+        </template>
+        <template v-slot:item.action="{ item }">
+          <v-btn
+            :to="`/article/update/${item.id}`"
+            icon
           >
-            edit
-          </v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon
-            small
-            color="red"
-          >
-            delete
-          </v-icon>
-        </v-btn>
-      </template>
+            <v-icon
+              small
+              color="purple"
+            >
+              edit
+            </v-icon>
+          </v-btn>
+          <v-btn icon>
+            <v-icon
+              small
+              color="red"
+            >
+              delete
+            </v-icon>
+          </v-btn>
+        </template>
+      </v-data-table>
+    </v-skeleton-loader>
 
-    </v-data-table>
   </v-card>
 </template>
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import gql from 'graphql-tag'
 import { ALLARTICLE } from '../../graphql'
+
 @Component({
     apollo: {
         AllArticle() {

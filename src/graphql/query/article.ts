@@ -8,3 +8,11 @@ export const ALLARTICLE = gql`
     }
     ${Article.fragment}
 `
+export const ONEARTICLE = gql`
+    query($id: String!) {
+        OneArticle(id: $id) {
+            ...fragment
+        }
+    }
+    ${Article.fragment}
+`

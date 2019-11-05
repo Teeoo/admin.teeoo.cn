@@ -26,11 +26,22 @@ export const Article = {
                 nickname
             }
             category {
+                id
                 label
             }
             tags {
                 id
                 label
+            }
+            fields {
+                id
+                order
+                desc
+                createdAt
+                updatedAt
+                name
+                type
+                value
             }
         }
     `
