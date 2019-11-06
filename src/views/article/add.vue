@@ -375,7 +375,30 @@ export default class AddArticle extends Vue {
 
     @Watch('content', { deep: true })
     private onText(val: any, oldVal: any) {
-        // this.toc = (this.$refs.md as any).toc
+        const markdownIt = (this.$refs.md as any).markdownIt
+        const markdownItAttrs = require('markdown-it-attrs')
+        markdownIt.use(markdownItAttrs)
+        markdownIt.renderer.rules.fence = (
+            tokens: any,
+            idx: any,
+            options: any,
+            env: any,
+            slf: any
+        ) => {
+            const token = tokens[idx]
+            return (
+                '<pre ' +
+                slf.renderAttrs(token) +
+                '>' +
+                '<code class=lang-' +
+                token.info +
+                '>' +
+                token.content +
+                '</code>' +
+                '</pre>'
+            )
+        }
+        markdownIt.set({ breaks: false })
         this.markdown = (this.$refs.md as any).d_value
     }
 

@@ -477,7 +477,7 @@ export default class ArticleUpdate extends Vue {
             })
             ;(this.$refs.md as any).$img2Url(
                 pos,
-                `http://127.0.0.1:3000/${result.data.uploads.filename}`
+                `${process.env.VUE_APP_API}/${result.data.uploads.filename}`
             )
         } catch (error) {}
     }

@@ -47,6 +47,20 @@ const children = [
         meta: {
             title: '修改文章'
         }
+    },
+    {
+        path: 'links',
+        component: () => import('@/views/links/index.vue'),
+        meta: {
+            title: '友情链接'
+        }
+    },
+    {
+        path: 'options/settings',
+        component: () => import('@/views/options/settings/index.vue'),
+        meta: {
+            title: '基础设置'
+        }
     }
 ]
 

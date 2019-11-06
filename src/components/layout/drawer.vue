@@ -91,25 +91,25 @@ export default class Drawer extends Vue {
             icon: 'settings',
             color: 'cyan',
             title: '基础设置',
-            path: '/options'
+            path: '/options/settings'
         },
         {
             icon: 'account_circle',
             color: 'cyan',
             title: '用户设置',
-            path: '/options'
+            path: '/'
         },
         {
             icon: 'message',
             color: 'cyan',
             title: '评论设置',
-            path: '/options'
+            path: '/'
         },
         {
             icon: 'email',
             color: 'cyan',
             title: '邮件设置',
-            path: '/options'
+            path: '/'
         }
     ]
 }
