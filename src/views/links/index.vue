@@ -56,7 +56,7 @@
           </v-avatar>
         </template>
         <template v-slot:item.status="{ item }">
-          {{item.statue ? "显示":"不显示"}}
+          {{item.status?"显示":"不显示"}}
         </template>
         <template v-slot:item.createdAt="{ item }">
           {{item.createdAt | formatDate}}
@@ -343,10 +343,13 @@ export default class Links extends Vue {
     private async show(item: any) {
         this.drawer = true
         this.item = item
-        this.links.label.value = this.item.label
-        this.links.slug.value = this.item.slug
+        this.links.logo.value = this.item.logo
+        this.links.url.value = this.item.url
+        this.links.name.value = this.item.name
         this.links.desc.value = this.item.desc
-        this.links.parent.value = this.item.parent
+        this.links.email.value = this.item.email
+        this.links.target.value = this.item.target
+        this.links.status.value = this.item.status
     }
 
     private async remove() {
