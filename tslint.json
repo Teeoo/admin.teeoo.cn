@@ -1,10 +1,8 @@
 {
-  "defaultSeverity": "warning",
-  "extend": ["tslint:recommended", "tslint-config-prettier"],
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended"],
   "linterOptions": {
-    "exclude": [
-      "node_modules/**"
-    ]
+    "exclude": ["node_modules/**"]
   },
   "rules": {
     "indent": [true, "spaces", 2],
@@ -12,6 +10,20 @@
     "no-consecutive-blank-lines": false,
     "object-literal-sort-keys": false,
     "ordered-imports": false,
-    "quotemark": [true, "single"]
+    "quotemark": [true, "single"],
+    "semicolon": [true, "never", "ignore-interfaces"],
+    "trailing-comma": false
+    // "trailing-comma": [
+    //   true,
+    //   {
+    //     "multiline": {
+    //       "objects": "always",
+    //       "arrays": "never",
+    //       "functions": "never",
+    //       "typeLiterals": "ignore"
+    //     },
+    //     "esSpecCompliant": true
+    //   }
+    // ]
   }
 }

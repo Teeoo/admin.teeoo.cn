@@ -33,7 +33,7 @@ export default class Toast extends Vue {
     private active: boolean = false
 
     private mounted() {
-        ;(this.$refs.elementRef as any).show()
+        (this.$refs.elementRef as any).show()
     }
 }
 </script>

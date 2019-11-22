@@ -27,8 +27,8 @@ export default new Vuex.Store({
         }
     },
     getters: {
-        userName: state => JSON.parse(state.user).nickname,
-        userAvatar: state => JSON.parse(state.user).avatarUrl,
-        userEmail: state => JSON.parse(state.user).email
+        userName: (state) => JSON.parse(state.user).nickname,
+        userAvatar: (state) => JSON.parse(state.user).avatar,
+        userEmail: (state) => JSON.parse(state.user).email
     }
 })
