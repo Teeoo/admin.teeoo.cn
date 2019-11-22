@@ -57,7 +57,8 @@
 import { Component, Vue } from 'vue-property-decorator'
 import gql from 'graphql-tag'
 import { Action } from 'vuex-class'
-import { onLogin } from '../../plugins'
+import { onLogin } from '@/plugins'
+import { SIGNIN } from '@/graphql'
 
 @Component({})
 export default class Login extends Vue {
@@ -81,20 +82,7 @@ export default class Login extends Vue {
         if ((this.$refs.form as any).validate()) {
             try {
                 const result = await this.$apollo.query({
-                    query: gql`
-                        query($data: LoginUserInput!) {
-                            SignIn(data: $data) {
-                                accessToken
-                                tokenType
-                                expiresIn
-                                User {
-                                    id
-                                    name
-                                    avatar
-                                }
-                            }
-                        }
-                    `,
+                    query: SIGNIN,
                     variables: {
                         data: {
                             name: await this.login.username.value,
