@@ -2,9 +2,7 @@
     <v-card flat>
         <v-card-title>
             <v-subheader>管理分类</v-subheader>
-            <v-btn dark color="deep-purple accent-3" rounded small>
-                新增
-            </v-btn>
+            <v-btn dark color="deep-purple accent-3" rounded small>新增</v-btn>
         </v-card-title>
         <v-skeleton-loader
             :loading="$apollo.queries.allCategory.loading"
@@ -20,22 +18,17 @@
                 loading-text="加载中请稍候..."
                 :page.sync="allCategory.pageCount"
                 hide-default-footer
-            >
-            </v-data-table>
+            ></v-data-table>
         </v-skeleton-loader>
         <v-card-actions>
-            <v-pagination
-                v-model="page"
-                :length="allCategory.pageCount"
-                :total-visible="7"
-            ></v-pagination>
+            <v-pagination v-model="page" :length="allCategory.pageCount" :total-visible="7"></v-pagination>
         </v-card-actions>
     </v-card>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import { ALLCATEGORY } from '@/graphql'
-@Component({
+@Component<Category>({
     apollo: {
         allCategory: {
             query: ALLCATEGORY,

@@ -3,22 +3,10 @@
         <Drawer v-model="drawer" />
         <v-app-bar app dark color="deep-purple accent-4">
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-            <v-text-field
-                flat
-                hide-details
-                label="查找"
-                prepend-inner-icon="search"
-                solo-inverted
-            ></v-text-field>
+            <v-text-field flat hide-details label="查找" prepend-inner-icon="search" solo-inverted></v-text-field>
             <v-spacer></v-spacer>
-            <v-btn
-                icon
-                target="_blank"
-                href="https://github.com/Teeoo/admin.teeoo.cn"
-            >
-                <v-icon title="https://github.com/Teeoo/admin.teeoo.cn"
-                    >mdi-github-circle</v-icon
-                >
+            <v-btn icon target="_blank" href="https://github.com/Teeoo/admin.teeoo.cn">
+                <v-icon title="https://github.com/Teeoo/admin.teeoo.cn">mdi-github-circle</v-icon>
             </v-btn>
             <v-btn icon @click="settingsVisible">
                 <v-icon>mdi-settings</v-icon>
@@ -38,7 +26,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import Drawer from '@/components/layout/drawer.vue'
 
-@Component({
+@Component<Layout>({
     components: { Drawer }
 })
 export default class Layout extends Vue {

@@ -10,11 +10,7 @@
                                 <v-spacer></v-spacer>
                             </v-toolbar>
                             <v-card-text>
-                                <v-form
-                                    ref="form"
-                                    v-model="valid"
-                                    lazy-validation
-                                >
+                                <v-form ref="form" v-model="valid" lazy-validation>
                                     <v-text-field
                                         label="用户名"
                                         name="login"
@@ -43,8 +39,7 @@
                                     color="primary"
                                     @click="landing"
                                     :disabled="!valid"
-                                    >登陆</v-btn
-                                >
+                                >登陆</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-col>
@@ -60,8 +55,8 @@ import { Action } from 'vuex-class'
 import { onLogin } from '@/plugins'
 import { SIGNIN } from '@/graphql'
 
-@Component({})
-export default class Login extends Vue {
+@Component<SignIn>({})
+export default class SignIn extends Vue {
     @Action private setToken!: any
     @Action private setUser!: any
     private valid: boolean = true
