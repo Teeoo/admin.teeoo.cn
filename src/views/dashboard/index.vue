@@ -18,6 +18,6 @@ import { pluck } from 'rxjs/operators'
     }
 })
 export default class Dashboard extends Vue {
-    private news: string
+    private news!: string
 }
 </script>

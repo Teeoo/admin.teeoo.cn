@@ -1,2 +1,11 @@
 import { ALLCATEGORY, SIGNIN } from './query'
-export { SIGNIN, ALLCATEGORY }
+import { ONCHANGECATEGORY } from './subscription'
+import { NEWCATEGORY, UPDATECATEGORY, DELETECATEGORY } from './mutation'
+export {
+    SIGNIN,
+    ALLCATEGORY,
+    ONCHANGECATEGORY,
+    NEWCATEGORY,
+    UPDATECATEGORY,
+    DELETECATEGORY
+}

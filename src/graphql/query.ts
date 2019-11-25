@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { CATE } from './fragments'
+import { CATEPage } from './fragments'
 // 登录
 export const SIGNIN = gql`
     query($data: LoginUserInput!) {
@@ -27,5 +27,5 @@ export const ALLCATEGORY = gql`
             ...Cate
         }
     }
-    ${CATE.Cate}
+    ${CATEPage.Cate}
 `

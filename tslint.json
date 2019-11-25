@@ -1,29 +1,29 @@
 {
-  "defaultSeverity": "error",
-  "extends": ["tslint:recommended"],
-  "linterOptions": {
-    "exclude": ["node_modules/**"]
-  },
-  "rules": {
-    "indent": [true, "spaces", 2],
-    "interface-name": false,
-    "no-consecutive-blank-lines": false,
-    "object-literal-sort-keys": false,
-    "ordered-imports": false,
-    "quotemark": [true, "single"],
-    "semicolon": [true, "never", "ignore-interfaces"],
-    "trailing-comma": false
-    // "trailing-comma": [
-    //   true,
-    //   {
-    //     "multiline": {
-    //       "objects": "always",
-    //       "arrays": "never",
-    //       "functions": "never",
-    //       "typeLiterals": "ignore"
-    //     },
-    //     "esSpecCompliant": true
-    //   }
-    // ]
-  }
+    "defaultSeverity": "error",
+    "extends": ["tslint:recommended"],
+    "linterOptions": {
+        "exclude": ["node_modules/**"]
+    },
+    "rules": {
+        "indent": [true, "spaces", 2],
+        "interface-name": false,
+        "no-consecutive-blank-lines": false,
+        "object-literal-sort-keys": false,
+        "ordered-imports": false,
+        "quotemark": [true, "single"],
+        "semicolon": [true, "never", "ignore-interfaces"],
+        "trailing-comma": false
+        // "trailing-comma": [
+        //   true,
+        //   {
+        //     "multiline": {
+        //       "objects": "always",
+        //       "arrays": "never",
+        //       "functions": "never",
+        //       "typeLiterals": "ignore"
+        //     },
+        //     "esSpecCompliant": true
+        //   }
+        // ]
+    }
 }

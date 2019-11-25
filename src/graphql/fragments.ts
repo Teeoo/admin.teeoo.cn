@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-export const CATE = {
+export const CATEPage = {
     Cate: gql`
         fragment Cate on CategoryPaginate {
             items {
@@ -16,6 +16,24 @@ export const CATE = {
                 children
                 parent
             }
+        }
+    `
+}
+
+export const CATE = {
+    Cate: gql`
+        fragment Cate on Category {
+            id
+            order
+            desc
+            createdAt
+            updatedAt
+            label
+            slug
+            cateNum
+            archNum
+            children
+            parent
         }
     `
 }
