@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { CATEPage } from './fragments'
+import { CATEPAGE } from './fragments'
 
 export const ONCHANGECATEGORY = gql`
     subscription {
@@ -12,5 +12,5 @@ export const ONCHANGECATEGORY = gql`
             ...Cate
         }
     }
-    ${CATEPage.Cate}
+    ${CATEPAGE.Cate}
 `

@@ -6,7 +6,7 @@
         </v-card-title>
         <v-data-table
             :headers="headers"
-            :items="allCategory.items"
+            :items="allCategory.data"
             show-select
             item-key="id"
             :loading="$apollo.queries.allCategory.loading"
@@ -79,7 +79,7 @@
             </v-container>
         </v-navigation-drawer>
         <v-card-actions>
-            <v-pagination v-model="page" :length="allCategory.pageCount" :total-visible="7"></v-pagination>
+            <v-pagination v-model="page" :length="allCategory.last_page" :total-visible="7"></v-pagination>
         </v-card-actions>
     </v-card>
 </template>
@@ -200,7 +200,7 @@ export default class Category extends Vue {
                     this.allCategory.items.push(result.data.newCategory)
                 }
                 this.$toast.info(
-                    `${Object.keys(this.data).length ? '修改' : '新增'}'分类${
+                    `${Object.keys(this.data).length ? '修改' : '新增'}分类 '${
                         Object.keys(this.data).length
                             ? result.data.updateCategory.label
                             : result.data.newCategory.label

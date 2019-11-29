@@ -1,4 +1,4 @@
-import { ALLCATEGORY, SIGNIN } from './query'
+import { ALLCATEGORY, SIGNIN, ALLARTICLE } from './query'
 import { ONCHANGECATEGORY } from './subscription'
 import { NEWCATEGORY, UPDATECATEGORY, DELETECATEGORY } from './mutation'
 export {
@@ -7,5 +7,6 @@ export {
     ONCHANGECATEGORY,
     NEWCATEGORY,
     UPDATECATEGORY,
-    DELETECATEGORY
+    DELETECATEGORY,
+    ALLARTICLE
 }

@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { CATEPage } from './fragments'
+import { CATEPAGE, ARTICLEPAGE } from './fragments'
 // 登录
 export const SIGNIN = gql`
     query($data: LoginUserInput!) {
@@ -15,17 +15,30 @@ export const SIGNIN = gql`
         }
     }
 `
+
 // 全部分类
 export const ALLCATEGORY = gql`
     query($page: Int, $limit: Int) {
         allCategory(page: $page, limit: $limit) {
-            itemCount
-            totalItems
-            pageCount
-            next
-            previous
+            total
+            per_page
+            current_page
+            last_page
             ...Cate
         }
     }
-    ${CATEPage.Cate}
+    ${CATEPAGE.Cate}
+`
+// 全部文章
+export const ALLARTICLE = gql`
+    query($page: Int, $limit: Int) {
+        allArticle(page: $page, limit: $limit) {
+            total
+            per_page
+            current_page
+            last_page
+            ...Article
+        }
+    }
+    ${ARTICLEPAGE.Article}
 `

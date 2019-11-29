@@ -24,3 +24,4 @@ export const DELETECATEGORY = gql`
         deleteCategory(id: $id)
     }
 `
+
