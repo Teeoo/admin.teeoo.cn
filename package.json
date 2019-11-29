@@ -20,7 +20,7 @@
         "rxjs": "6.5.3",
         "screenfull": "5.0.0",
         "vue": "2.6.10",
-        "vue-apollo": "3.0.0",
+        "vue-apollo": "3.0.2",
         "vue-class-component": "7.1.0",
         "vue-property-decorator": "8.3.0",
         "vue-router": "3.1.3",
