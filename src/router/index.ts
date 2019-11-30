@@ -26,6 +26,13 @@ const children = [
         meta: {
             title: '文章'
         }
+    },
+    {
+        path: 'article/add',
+        component: () => import('@/views/article/add.vue'),
+        meta: {
+            title: '新增文章'
+        }
     }
 ]
 
@@ -47,7 +54,7 @@ const routes: RouteConfig[] = [
 ]
 
 const router: Router = new Router({
-    // mode: 'history',
+    mode: 'history',
     routes
 })
 

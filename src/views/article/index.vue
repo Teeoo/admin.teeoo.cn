@@ -57,7 +57,7 @@ export default class Article extends Vue {
     private headers: Array<object | []> = [
         { text: '文章标题', value: 'title' },
         { text: '分类', value: 'category.label' },
-        { text: '作者', value: 'author.nickname' },
+        { text: '作者', value: 'author.name' },
         { text: '发布状态', value: 'status' },
         { text: '内容类别', value: 'type' },
         { text: '内容公开状态', value: 'publish' },
