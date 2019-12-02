@@ -40,6 +40,13 @@ const children = [
         meta: {
             title: '新增文章'
         }
+    },
+    {
+        path: 'links',
+        component: () => import('@/views/links/index.vue'),
+        meta: {
+            title: '友情链接'
+        }
     }
 ]
 

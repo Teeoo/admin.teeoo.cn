@@ -127,3 +127,41 @@ export const TAGS = {
         }
     `
 }
+
+export const LINKSPAGE = {
+    Links: gql`
+        fragment Links on LinksPaginate {
+            data {
+                id
+                order
+                desc
+                createdAt
+                updatedAt
+                url
+                name
+                email
+                logo
+                target
+                status
+            }
+        }
+    `
+}
+
+export const LINKS = {
+    Links: gql`
+        fragment Links on Links {
+            id
+            order
+            desc
+            createdAt
+            updatedAt
+            url
+            name
+            email
+            logo
+            target
+            status
+        }
+    `
+}
