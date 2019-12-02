@@ -197,7 +197,7 @@ export default class Category extends Vue {
                     }
                 })
                 if (!Object.keys(this.data).length) {
-                    this.allCategory.items.push(result.data.newCategory)
+                    this.allCategory.data.push(result.data.newCategory)
                 }
                 this.$toast.info(
                     `${Object.keys(this.data).length ? '修改' : '新增'}分类 '${
@@ -224,8 +224,8 @@ export default class Category extends Vue {
                     id: this.data.id
                 }
             })
-            this.allCategory.items.splice(
-                this.allCategory.items.findIndex(
+            this.allCategory.data.splice(
+                this.allCategory.data.findIndex(
                     (v: any) => v.id === this.data.id
                 ),
                 1

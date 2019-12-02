@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { CATEPAGE, ARTICLEPAGE } from './fragments'
+import { CATEPAGE, ARTICLEPAGE, TAGSPAGE } from './fragments'
 // 登录
 export const SIGNIN = gql`
     query($data: LoginUserInput!) {
@@ -41,4 +41,16 @@ export const ALLARTICLE = gql`
         }
     }
     ${ARTICLEPAGE.Article}
+`
+export const ALLTAGS = gql`
+    query($page: Int, $limit: Int) {
+        allTags(page: $page, limit: $limit) {
+            total
+            per_page
+            current_page
+            last_page
+            ...Tags
+        }
+    }
+    ${TAGSPAGE.Tags}
 `

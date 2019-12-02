@@ -3,9 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './registerServiceWorker'
-import { createProvider, vuetify, Filters } from '@/plugins'
-
-
+import { createProvider, vuetify } from '@/plugins'
 
 new Vue({
     router,

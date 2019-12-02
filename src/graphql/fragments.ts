@@ -93,3 +93,37 @@ export const ARTICLEPAGE = {
         }
     `
 }
+
+export const TAGSPAGE = {
+    Tags: gql`
+        fragment Tags on TagsPaginate {
+            data {
+                id
+                order
+                desc
+                createdAt
+                updatedAt
+                label
+                slug
+                color
+                hot
+            }
+        }
+    `
+}
+
+export const TAGS = {
+    Tags: gql`
+        fragment Tags on Tags {
+            id
+            order
+            desc
+            createdAt
+            updatedAt
+            label
+            slug
+            color
+            hot
+        }
+    `
+}

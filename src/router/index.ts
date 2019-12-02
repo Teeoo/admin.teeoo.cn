@@ -21,6 +21,13 @@ const children = [
         }
     },
     {
+        path: 'tags',
+        component: () => import('@/views/tags/index.vue'),
+        meta: {
+            title: '标签'
+        }
+    },
+    {
         path: 'article',
         component: () => import('@/views/article/index.vue'),
         meta: {
