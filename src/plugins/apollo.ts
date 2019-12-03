@@ -61,9 +61,9 @@ export function createProvider(options = {}) {
             console.log(
                 '%cError',
                 'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;',
-                error.gqlError
+                JSON.stringify(error)
             )
-            if (error.gqlError.statusCode === 401) {
+            if (error.gqlError && error.gqlError.statusCode === 401) {
                 if (router.currentRoute.path !== '/login') {
                     router.replace({
                         path: '/login',
@@ -71,20 +71,6 @@ export function createProvider(options = {}) {
                     })
                 }
             }
-            // Object.keys(error.graphQLErrors).forEach((key: any) => {
-            //   console.log(
-            //     '%cError',
-            //     'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;',
-            //     error.graphQLErrors[key]
-            //   )
-            //   if ((error.graphQLErrors[key] as any).statusCode === 401) {
-            //     if (router.currentRoute.path !== '/login') {
-            //       // router.replace({
-            //       //   path: '/login'
-            //       // })
-            //     }
-            //   }
-            // })
         }
     })
 

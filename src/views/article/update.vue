@@ -157,18 +157,31 @@
 </template>
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator'
-import { _ALLCATEGORY, NEWARTICLE } from '@/graphql'
-@Component<NewArticle>({
+import { _ALLCATEGORY, NEWARTICLE, ONEARTICLE, UPDATEARTICLE } from '@/graphql'
+@Component<UpdateArticle>({
     apollo: {
         _allCategory: {
             query: _ALLCATEGORY,
+            error(error) {
+                this.$toast.error(error)
+            }
+        },
+        oneArticle: {
+            query: ONEARTICLE,
+            variables() {
+                return {
+                    id: this.$route.params.id
+                }
+            },
             error({ message }) {
+                this.$router.replace('/article')
                 this.$toast.error(message)
             }
         }
     }
 })
-export default class NewArticle extends Vue {
+export default class UpdateArticle extends Vue {
+    private oneArticle: any = {}
     private html: string = ``
     private text: string = ``
     private loading: boolean = false
@@ -312,12 +325,40 @@ export default class NewArticle extends Vue {
         }
     }
 
+    @Watch('oneArticle')
+    private onOneArticle(val: any, oldVal: any) {
+        this.data.title.value = val.title
+        this.data.slug.value = val.slug
+        this.data.category.value =
+            val.type === 'article' ? val.category.id : undefined
+        // this.html = val.html
+        this.text = val.text
+        this.data.type.value = val.type
+        this.data.status.value = val.status
+        this.data.publish.value = val.publish
+        this.data.password.value = val.password
+        this.data.allowComment.value = val.allowComment
+        this.data.isTop.value = val.isTop
+        this.data.template.value = val.template
+        // this.fields = val.fields
+
+        const tags: any = []
+
+        val.tags.forEach((v: any) => {
+            tags.push(v.label)
+        })
+        val.fields.forEach((v: any) => {
+            this.fields.push({ name: v.name, type: v.type, value: v.value })
+        })
+
+        this.data.tags.value = tags
+    }
+
     @Watch('text', { deep: true })
     private onText(val: any, oldVal: any) {
         const markdown = this.$refs.md as any
         this.html = markdown.d_render
     }
-
     private async add(): Promise<void> {
         this.loading = true
         await this.data.tags.value.forEach((v: any) => {
@@ -326,8 +367,9 @@ export default class NewArticle extends Vue {
         if ((this.$refs.form as any).validate()) {
             try {
                 const result = await this.$apollo.mutate({
-                    mutation: NEWARTICLE,
+                    mutation: UPDATEARTICLE,
                     variables: {
+                        id: this.oneArticle.id,
                         data: {
                             title: await this.data.title.value,
                             slug: await this.data.slug.value,

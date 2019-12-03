@@ -11,6 +11,7 @@
             item-key="id"
             :loading="$apollo.loading"
             loading-text="Loading... Please wait"
+            hide-default-footer
         >
             <template
                 v-slot:item.category.label="{ item }"
@@ -31,16 +32,19 @@
                 <v-btn :to="`/article/update/${item.id}`" icon>
                     <v-icon small color="purple">edit</v-icon>
                 </v-btn>
-                <v-btn icon>
+                <v-btn icon @click="del(item)">
                     <v-icon small color="red">delete</v-icon>
                 </v-btn>
             </template>
         </v-data-table>
+        <v-card-actions>
+            <v-pagination v-model="page" :length="allArticle.last_page" :total-visible="7"></v-pagination>
+        </v-card-actions>
     </v-card>
 </template>
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator'
-import { ALLARTICLE } from '@/graphql'
+import { ALLARTICLE, DELETEARTICLE } from '@/graphql'
 
 @Component<Article>({
     apollo: {
@@ -49,11 +53,15 @@ import { ALLARTICLE } from '@/graphql'
             variables: {
                 page: 1,
                 limit: 10
+            },
+            error({ message }) {
+                this.$toast.error(message)
             }
         }
     }
 })
 export default class Article extends Vue {
+    private page: number = 1
     private headers: Array<object | []> = [
         { text: '文章标题', value: 'title' },
         { text: '分类', value: 'category.label' },
@@ -70,5 +78,37 @@ export default class Article extends Vue {
     ]
 
     private allArticle: any = {}
+
+    @Watch('page')
+    private async pagination(newPage: number, oldPage: number): Promise<void> {
+        this.$apollo.queries.allArticle.fetchMore({
+            variables: {
+                page: newPage,
+                limit: 10
+            },
+            updateQuery: (previousResult, { fetchMoreResult }) => {
+                this.allArticle = fetchMoreResult.allArticle
+            }
+        })
+    }
+
+    private async del(item: any): Promise<void> {
+        const data = item.title
+        try {
+            const result = await this.$apollo.mutate({
+                mutation: DELETEARTICLE,
+                variables: {
+                    id: item.id
+                }
+            })
+            this.allArticle.data.splice(
+                this.allArticle.data.findIndex((v: any) => v.id === item.id),
+                1
+            )
+            this.$toast.info(`成功删除文章 '${data}'`)
+        } catch (error) {
+            this.$toast.error(`删除文章失败:${error}`)
+        }
+    }
 }
 </script>

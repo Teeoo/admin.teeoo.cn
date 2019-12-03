@@ -12,6 +12,7 @@
         "ordered-imports": false,
         "quotemark": [true, "single"],
         "semicolon": [true, "never", "ignore-interfaces"],
+        "variable-name": false,
         "trailing-comma": false
         // "trailing-comma": [
         //   true,

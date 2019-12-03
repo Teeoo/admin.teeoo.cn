@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { CATE, TAGS, LINKS } from './fragments'
+import { CATE, TAGS, LINKS, ARTICLE } from './fragments'
 // 新增分类
 export const NEWCATEGORY = gql`
     mutation($data: NewCategoryInput!) {
@@ -75,5 +75,29 @@ export const UPDATELINKS = gql`
 export const DELETELINKS = gql`
     mutation($id: String!) {
         deleteLinks(id: $id)
+    }
+`
+// 新增文章
+export const NEWARTICLE = gql`
+    mutation($data: NewArticleInput!) {
+        newArticle(data: $data) {
+            ...Article
+        }
+    }
+    ${ARTICLE.Article}
+`
+// 修改文章
+export const UPDATEARTICLE = gql`
+    mutation($data: UpdateArticleInput!, $id: String!) {
+        updateArticle(data: $data, id: $id) {
+            ...Article
+        }
+    }
+    ${ARTICLE.Article}
+`
+// 删除文章
+export const DELETEARTICLE = gql`
+    mutation($id: String!) {
+        deleteArticle(id: $id)
     }
 `

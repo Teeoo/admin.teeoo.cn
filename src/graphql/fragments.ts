@@ -165,3 +165,78 @@ export const LINKS = {
         }
     `
 }
+
+export const ARTICLE = {
+    Article: gql`
+        fragment Article on Article {
+            id
+            order
+            desc
+            createdAt
+            updatedAt
+            title
+            slug
+            cover
+            summary
+            text
+            html
+            template
+            type
+            status
+            publish
+            password
+            allowComment
+            isTop
+            exinfo
+            category {
+                id
+                order
+                desc
+                createdAt
+                updatedAt
+                label
+                slug
+                cateNum
+                archNum
+                children
+                parent
+            }
+            author {
+                id
+                order
+                desc
+                createdAt
+                updatedAt
+                name
+                email
+                avatar
+                url
+                screenName
+                exInfo
+                lastIp
+                lastTime
+            }
+            tags {
+                id
+                order
+                desc
+                createdAt
+                updatedAt
+                label
+                slug
+                color
+                hot
+            }
+            fields {
+                id
+                order
+                desc
+                createdAt
+                updatedAt
+                name
+                type
+                value
+            }
+        }
+    `
+}

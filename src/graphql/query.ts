@@ -1,5 +1,12 @@
 import gql from 'graphql-tag'
-import { CATEPAGE, ARTICLEPAGE, TAGSPAGE, LINKSPAGE } from './fragments'
+import {
+    CATEPAGE,
+    ARTICLEPAGE,
+    TAGSPAGE,
+    LINKSPAGE,
+    CATE,
+    ARTICLE
+} from './fragments'
 // 登录
 export const SIGNIN = gql`
     query($data: LoginUserInput!) {
@@ -68,4 +75,22 @@ export const ALLLINKS = gql`
         }
     }
     ${LINKSPAGE.Links}
+`
+// 无分页全部分类
+export const _ALLCATEGORY = gql`
+    query {
+        _allCategory {
+            ...Cate
+        }
+    }
+    ${CATE.Cate}
+`
+
+export const ONEARTICLE = gql`
+    query($id: String!) {
+        oneArticle(id: $id) {
+            ...Article
+        }
+    }
+    ${ARTICLE.Article}
 `
