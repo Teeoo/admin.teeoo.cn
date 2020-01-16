@@ -42,7 +42,7 @@
         "stylus": "0.54.7",
         "stylus-loader": "3.0.2",
         "tslint": "5.20.1",
-        "typescript": "3.7.3",
+        "typescript": "3.7.5",
         "vue-cli-plugin-apollo": "0.21.3",
         "vue-cli-plugin-vuetify": "2.0.2",
         "vue-template-compiler": "2.6.11",
