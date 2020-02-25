@@ -1,14 +1,12 @@
-import Vue, { CreateElement } from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import './registerServiceWorker'
-import { createProvider, vuetify } from '@/plugins'
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-new Vue({
-    router,
-    store,
-    vuetify,
-    apolloProvider: createProvider(),
-    render: (h: CreateElement) => h(App)
-}).$mount('#app')
+import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
+
+if (environment.production) {
+  enableProdMode();
+}
+
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.error(err));
