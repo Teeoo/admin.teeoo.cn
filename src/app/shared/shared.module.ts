@@ -1,19 +1,20 @@
 import { NgModule } from '@angular/core';
-import { MaterialModule } from './material.module';
+import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { GraphQLModule } from '../graphql/graphql.module';
+import { GraphQLModule } from './graphql/graphql.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ComponentsModule } from './components/components.module';
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule,
-    GraphQLModule
+    GraphQLModule,
+    ComponentsModule
   ],
   exports: [
     CommonModule,
@@ -21,7 +22,8 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule,
-    GraphQLModule
-  ]
+    GraphQLModule,
+    ComponentsModule
+  ],
 })
 export class SharedModule { }
