@@ -1,0 +1,83 @@
+<div class="layout-full">
+  <div class="page md-text-center">
+    <div
+      fxLayout="row nowrap"
+      fxLayoutAlign="space-between stretch"
+      fxLayoutAlign.lt-md="center stretch"
+      style="height: 100%;"
+    >
+      <div class="brand-info" fxHide.xs>
+        <b
+          style="height: 100vh;line-height: 2;"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+        >
+          <blockquote>
+            {{ hitokoto?.hitokoto }}
+          </blockquote>
+        </b>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          —— {{ hitokoto?.from_who }}「{{ hitokoto?.from }}」
+        </div>
+      </div>
+      <div class="auth-box vertical-align">
+        <div class="vertical-align-middle">
+          <div style="padding: 30px;">
+            <b
+              fxShow
+              fxHide.xl
+              fxHide.lg
+              fxHide.md
+              fxHide.sm
+              style="line-height: 2;"
+              class="s-20"
+              fxLayout="row"
+              fxLayoutAlign="center center"
+            >
+              <blockquote>
+                {{ hitokoto?.hitokoto }}
+              </blockquote>
+            </b>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <mat-form-field
+                color-white
+                required-color-red
+                color="accent"
+                class="full-width"
+              >
+                <mat-label>用户名</mat-label>
+                <input matInput formControlName="name" />
+                <mat-error *ngIf="loginForm.get('name').hasError('required')"
+                  >请填写用户名!</mat-error
+                >
+              </mat-form-field>
+              <mat-form-field
+                color-white
+                required-color-red
+                color="accent"
+                class="full-width"
+              >
+                <mat-label>密码</mat-label>
+                <input matInput formControlName="password" />
+                <mat-error>请输入用户名</mat-error>
+              </mat-form-field>
+              <button
+                type="submit"
+                [disabled]="!loginForm.valid"
+                mat-flat-button
+                color="primary"
+                class="full-width"
+              >
+                登录
+              </button>
+            </form>
+          </div>
+          <div class="copyright">
+            <p class="md-text-center">WEBSITE BY lee</p>
+            <p class="md-text-center">© {{ today }}. All RIGHT RESERVED.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

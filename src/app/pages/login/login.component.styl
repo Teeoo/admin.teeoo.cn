@@ -1,0 +1,92 @@
+.layout-full
+  position: absolute
+  z-index: 0
+  width: 100%
+  height: 100%
+  color: #fff
+  font-family: Roboto, sans-serif
+  &::before
+    background-image: url('/assets/images/bg_login.jpg') 
+    background-size: cover
+  &::before
+    position: fixed
+    top: 0
+    left: 0
+    z-index: -1
+    width: 100%
+    height: 100%
+    content: ""
+    background-position: center top
+    background-size: cover
+  &::after
+    position: fixed
+    top: 0
+    left: 0
+    z-index: -1
+    width: 100%
+    height: 100%
+    content: ""
+    background-color: rgba(33, 33, 33, 0.6)
+  .page
+    position: relative
+    height: 100%
+    padding: 0
+    margin: 0
+    background: transparent
+  .brand-info
+    margin: 0 100px 0 90px
+    // b
+    //   max-width: 650px
+    //   opacity: .6
+    //   font-size: 20px
+.auth-box
+  .copyright
+    margin-top: 60px
+    font-size: 12px
+    font-weight: 500
+    letter-spacing: 1px
+    p
+      margin: 0 0 14px
+  .social
+    mat-icon
+      color: #fff
+.vertical-align
+  &::before
+    display: inline-block
+    height: 100%
+    vertical-align: middle
+    content: ""
+  .vertical-align-middle
+    display: inline-block
+    vertical-align: middle
+blockquote 
+	font-size 1em
+	font-style normal
+	padding 30px 38px
+	// margin 0 0 15px
+	position relative
+	line-height 1.8
+	text-indent 0
+	border none
+	color #888
+	&:before 
+		content "“"
+		left 12px
+		top 0
+		color #E0E0E0
+		font-size 4em
+		font-family Arial, serif
+		line-height 1em
+		font-weight 700
+		position absolute
+	&:after 
+		content "”"
+		right 12px
+		bottom -26px
+		color #E0E0E0
+		font-size 4em
+		font-family Arial, serif
+		line-height 1em
+		font-weight 700
+		position absolute
+		bottom -31px

@@ -1,25 +1,51 @@
-import {NgModule} from '@angular/core';
-import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
-import {HttpLinkModule, HttpLink} from 'apollo-angular-link-http';
-import {InMemoryCache} from 'apollo-cache-inmemory';
+import { NgModule } from '@angular/core';
+import { ApolloModule, Apollo } from 'apollo-angular';
+import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import { environment } from '../../../environments/environment';
+import { onError } from 'apollo-link-error';
+import { ApolloLink } from 'apollo-link';
+import { NotificationsService } from 'angular2-notifications';
 
-const uri = environment.GraphQL; // <-- add the URL of the GraphQL server here
-export function createApollo(httpLink: HttpLink) {
-  return {
-    link: httpLink.create({uri}),
-    cache: new InMemoryCache(),
-  };
-}
+const uri = environment.GraphQL;
 
 @NgModule({
-  exports: [ApolloModule, HttpLinkModule],
-  providers: [
-    {
-      provide: APOLLO_OPTIONS,
-      useFactory: createApollo,
-      deps: [HttpLink],
-    },
-  ],
+  exports: [ApolloModule, HttpLinkModule]
 })
-export class GraphQLModule {}
+export class GraphQLModule {
+  constructor(
+    apollo: Apollo,
+    httpLink: HttpLink,
+    private _notyf: NotificationsService
+  ) {
+    const link = onError(({ graphQLErrors, networkError }) => {
+      graphQLErrors?.map(({ message }) => {
+        const messageError: any | string = message;
+        const error = messageError.message;
+        this._notyf.error('GraphQL error', error);
+        console.log(
+          '%c[GraphQL error]',
+          'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;',
+          JSON.stringify(message)
+        );
+      });
+      if (networkError) {
+        console.log(
+          '%c[Network error]',
+          'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;',
+          networkError
+        );
+      }
+    });
+    apollo.create({
+      link: ApolloLink.from([link, httpLink.create({ uri })]),
+      cache: new InMemoryCache(),
+      defaultOptions: {
+        watchQuery: {
+          fetchPolicy: 'network-only',
+          errorPolicy: 'all'
+        }
+      }
+    });
+  }
+}
