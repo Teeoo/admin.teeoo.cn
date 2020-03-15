@@ -4,9 +4,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path:'**',
-    redirectTo:'404',
-  }
+    path: '**',
+    redirectTo: 'not-found',
+  },
 ];
 
 @NgModule({

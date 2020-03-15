@@ -1,10 +1,12 @@
 <div fxLayout="row wrap" fxLayoutAlign="center center" class="full">
-    <div class="md-text-center">
-        <div class="code">{{code}}</div>
-        <div class="title" *ngIf="title">{{title}}</div>
-        <div class="message" *ngIf="message">{{message}}</div>
-        <div>
-            <a mat-raised-button color="primary" routerLink="/">返回首页</a>
-        </div>
+  <div class="md-text-center">
+    <div class="code">{{ code }}</div>
+    <div class="title" *ngIf="title">{{ title }}</div>
+    <div class="message" *ngIf="message">{{ message }}</div>
+    <div>
+      <button mat-raised-button color="primary" routerLink="/dashboard">
+        返回首页
+      </button>
     </div>
+  </div>
 </div>
