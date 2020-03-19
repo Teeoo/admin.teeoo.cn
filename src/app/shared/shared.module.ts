@@ -5,8 +5,6 @@ import { GraphQLModule } from './graphql/graphql.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ComponentsModule } from './components/components.module';
-import { SimpleNotificationsModule } from 'angular2-notifications';
-import { RouterModule, Routes } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -16,12 +14,7 @@ import { RouterModule, Routes } from '@angular/router';
     MaterialModule,
     FlexLayoutModule,
     GraphQLModule,
-    ComponentsModule,
-    SimpleNotificationsModule.forRoot({
-      position: ['top', 'right'],
-      timeOut:5000,
-      lastOnBottom: true,
-    })
+    ComponentsModule
   ],
   exports: [
     CommonModule,
@@ -30,8 +23,7 @@ import { RouterModule, Routes } from '@angular/router';
     MaterialModule,
     FlexLayoutModule,
     GraphQLModule,
-    ComponentsModule,
-    SimpleNotificationsModule
+    ComponentsModule
   ],
 })
 export class SharedModule { }

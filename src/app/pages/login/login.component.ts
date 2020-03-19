@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { NotificationsService } from 'angular2-notifications';
 import { map } from 'rxjs/operators';
+import { NotifyService } from '../../shared/components/notify/notify.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     private apollo: Apollo,
-    private _notyf: NotificationsService
+    private _notyf: NotifyService
   ) {
     this.loginForm = this.formbuilder.group({
       name: ['', [Validators.required]],

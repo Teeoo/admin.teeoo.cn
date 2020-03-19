@@ -5,7 +5,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { environment } from '../../../environments/environment';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
-import { NotificationsService } from 'angular2-notifications';
+import { NotifyService } from '../components/notify/notify.service';
 
 const uri = environment.GraphQL;
 
@@ -16,7 +16,7 @@ export class GraphQLModule {
   constructor(
     apollo: Apollo,
     httpLink: HttpLink,
-    private _notyf: NotificationsService
+    private _notyf: NotifyService
   ) {
     const link = onError(({ graphQLErrors, networkError }) => {
       graphQLErrors?.map(({ message }) => {
