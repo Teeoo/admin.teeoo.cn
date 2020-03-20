@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -11,14 +11,20 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom",
-      "esnext.asynciterable"
-    ]
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom", "esnext.asynciterable"],
+    "paths": {
+      "@core": ["app/core"],
+      "@core/*": ["app/core/*"],
+      "@shared": ["app/shared"],
+      "@shared/*": ["app/shared/*"],
+      "@services": ["app/services"],
+      "@services/*": ["app/services/*"],
+      "@models": ["app/models"],
+      "@models/*": ["app/models/*"],
+      "@pages": ["app/pages"],
+      "@pages/*": ["app/pages/*"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

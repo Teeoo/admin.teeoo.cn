@@ -1,13 +1,11 @@
-import { SignIn } from 'src/app/models/auth.model';
-import { AuthService } from './../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
-import { NotifyService } from '../../shared/components/notify/notify.service';
-import { GraphQLError } from 'graphql';
+import { NotifyService } from '@shared/components/notify/notify.service';
+import { AuthService } from '@services/auth/auth.service';
+import { SignIn } from '@models/auth.model';
 
 @Component({
   selector: 'app-login',
