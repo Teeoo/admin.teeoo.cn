@@ -40,12 +40,12 @@ export class GraphQLModule {
     apollo.create({
       link: ApolloLink.from([link, httpLink.create({ uri })]),
       cache: new InMemoryCache(),
-      defaultOptions: {
-        watchQuery: {
-          fetchPolicy: 'network-only',
-          errorPolicy: 'all'
-        }
-      }
+      // defaultOptions: {
+      //   watchQuery: {
+      //     fetchPolicy: 'network-only',
+      //     errorPolicy: 'all'
+      //   }
+      // }
     });
   }
 }

@@ -1,11 +1,13 @@
+import { SignIn } from 'src/app/models/auth.model';
+import { AuthService } from './../../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
-import { map } from 'rxjs/operators';
 import { NotifyService } from '../../shared/components/notify/notify.service';
+import { GraphQLError } from 'graphql';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +26,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private http: HttpClient,
     private apollo: Apollo,
-    private _notyf: NotifyService
+    private _notyf: NotifyService,
+    private authService: AuthService
   ) {
     this.loginForm = this.formbuilder.group({
       name: ['', [Validators.required]],
@@ -37,33 +40,16 @@ export class LoginComponent implements OnInit {
       this.hitokoto = data;
     });
   }
+
   onSubmit() {
-    this.apollo
-      .watchQuery({
-        query: gql`
-          query($data: LoginUserInput!) {
-            SignIn(data: $data) {
-              accessToken
-              tokenType
-              expiresIn
-              User {
-                name
-              }
-            }
-          }
-        `,
-        variables: {
-          data: this.loginForm.value
-        }
-      })
-      .valueChanges
+    this.authService
+      .SignIn(this.loginForm.value)
       .subscribe(
-        ({ data, errors }) => {
-          if (!errors) {
-            this._notyf.success('提示', '欢迎回来!')
-            this.router.navigate(['/']);
-          }
-        }
-      );
+        (result: SignIn) => {
+          this._notyf.info(`提示`, `欢迎 ${result.User.name} 回来,上次登录时间 ${new Date(result.User.lastTime).getFullYear()}-${new Date(result.User.lastTime).getMonth() + 1}-${new Date(result.User.lastTime).getDate()}`)
+          this.router.navigateByUrl(this.authService.redirectUrl ?? `/`)
+        },
+        err => { }
+      )
   }
 }
