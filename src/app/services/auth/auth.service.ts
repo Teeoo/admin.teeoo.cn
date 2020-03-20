@@ -66,6 +66,14 @@ export class AuthService {
       )
   }
 
+  public logout() {
+    localStorage.removeItem('auth')
+
+    this.user = null;
+
+    this.currentSubject.next(null);
+  }
+
   public get authInfo(): SignIn | {} {
     return this.user?.User ?? {}
   }
