@@ -927,6 +927,20 @@
     rxjs "6.5.3"
     webpack-sources "1.4.3"
 
+"@ngx-loading-bar/core@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@ngx-loading-bar/core/-/core-4.2.0.tgz#cf0cc209eb967bd7625c2cec565841890cd5e17e"
+  integrity sha512-sfVmsDoLr9zI7ylzPct4wefi6zWBPyekQIhJVhME3h9sPh8S+BHy5loKgUqiZR3YduRNr8boLh4GkHpL3eXEPg==
+  dependencies:
+    tslib "^1.7.1"
+
+"@ngx-loading-bar/router@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@ngx-loading-bar/router/-/router-4.2.0.tgz#e8a841b3d19b21db9b098e575c03d53ac14c697c"
+  integrity sha512-WFPzGDn25a9On3m0+sTGaHzj3/QAAU+LPX+ngNhSzqbJ8Kc0FJ5mKshVXRCgGZ9Wi2jjOKKRODTssS8lPMIdgA==
+  dependencies:
+    tslib "^1.9.0"
+
 "@schematics/angular@9.0.6":
   version "9.0.6"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-9.0.6.tgz#791f05f7a4ddaa77daece79377abebf0df6fb840"
@@ -8055,7 +8069,7 @@ tslib@1.10.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
 
-tslib@^1.10.0, tslib@^1.11.1, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
+tslib@^1.10.0, tslib@^1.11.1, tslib@^1.7.1, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
   integrity sha512-aZW88SY8kQbU7gpV19lN24LtXh/yD4ZZg6qieAJDDg+YBsJcSmLGK9QpnUjAKVG/xefmvJGd1WUmfpT/g6AJGA==

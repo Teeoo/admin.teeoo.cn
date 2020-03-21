@@ -23,7 +23,9 @@
       "@models": ["app/models"],
       "@models/*": ["app/models/*"],
       "@pages": ["app/pages"],
-      "@pages/*": ["app/pages/*"]
+      "@pages/*": ["app/pages/*"],
+      "@graphql": ["app/shared/graphql"],
+      "@graphql/*": ["app/shared/graphql/*"]
     }
   },
   "angularCompilerOptions": {

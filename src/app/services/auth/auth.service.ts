@@ -1,11 +1,10 @@
-import { SignIn } from './../../models/auth.model';
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs/operators';
-import gql from 'graphql-tag';
-import { RootObject } from '../../models/auth.model';
+import { RootObject, SignIn } from '@models/auth.model';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable } from 'rxjs';
+import { QUERY_SIGNIN } from '@shared/graphql/queries/auth-queries';
 
 @Injectable({
   providedIn: 'root'
@@ -27,30 +26,7 @@ export class AuthService {
 
   public SignIn(data: { name: string, password: string }) {
     return this.apollo.watchQuery<RootObject>({
-      query: gql`
-      query($data: LoginUserInput!) {
-        SignIn(data: $data) {
-          accessToken
-          tokenType
-          expiresIn
-          User {
-            id
-            order
-            desc
-            createdAt
-            updatedAt
-            name
-            email
-            avatar
-            url
-            screenName
-            exInfo
-            lastIp
-            lastTime
-          }
-        }
-      }
-      `,
+      query: QUERY_SIGNIN,
       variables: {
         data
       }
