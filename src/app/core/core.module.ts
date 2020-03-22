@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { PagesModule } from '../pages/pages.module';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 @NgModule({
   declarations: [],
@@ -15,13 +16,15 @@ import { PagesModule } from '../pages/pages.module';
     HttpClientModule,
     SharedModule,
     PagesModule,
-    AppRoutingModule,
+    LoadingBarRouterModule,
+    AppRoutingModule
   ],
   exports: [
     BrowserModule,
     CommonModule,
     SharedModule,
-    AppRoutingModule,
+    LoadingBarRouterModule,
+    AppRoutingModule
   ]
 })
 export class CoreModule {
