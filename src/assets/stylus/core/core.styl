@@ -1,0 +1,34 @@
+@import '_base';
+
+// interval
+$grid-gap-8 = 8px
+$grid-gap-16 = 16px
+$grid-gap-24 = 24px
+$grid-gap-40 = 40px
+
+//  92% - 96%
+.md-container
+  max-width 1280px
+  width 96%
+  @media (min-width $screen-sm-min)
+    width 94%
+  @media (min-width $screen-md-min)
+    width 92%
+
+// 100%
+.md-container,
+.md-container-fluid
+  box-sizing border-box
+  margin-left auto
+  margin-right auto
+  padding-left ($grid-gap-16 / 2)
+  padding-right ($grid-gap-16 / 2)
+  &:after
+    content ''
+    display table
+    clear both
+.full-width
+    width 100%
+.full-height
+    height 100%
+
